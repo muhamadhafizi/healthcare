@@ -9,6 +9,7 @@
           type="text"
           name="email"
           placeholder="email@adress.com"
+          v-model="user.email"
         />
       </div>
       <div class="input">
@@ -18,19 +19,48 @@
           type="password"
           name="password"
           placeholder="password123"
+          v-model="user.password"
         />
       </div>
-      <!-- <div class="alternative-option mt-4">
-        You don't have an account? <span @click="moveToRegister">Register</span>
-      </div> -->
       <button type="submit" class="mt-4 btn-pers" id="login_button">
         Login
       </button>
-      <router-link to="/appointment">Go to Bar</router-link>
+      <!-- <router-link to="/appointment">Go to Bar</router-link> -->
     </form>
   </div>
 </template>
 
+<script>
+  import Auth from '../js/vue/auth/auth.js'
+  import { ref } from 'vue'
+  import axios from 'axios'
+  import { useRouter } from 'vue-router'
+
+  export default {
+    data() {
+      return {
+        user: {
+          email: '',
+          password: '',
+        }
+      }
+    },
+
+    methods: {
+      login(){
+        axios.post('http://127.0.0.1:8000/api/v1/login', this.user)
+        .then(({data}) => {
+          Auth.login(data.token,this.user);
+          this.$router.push('/appointment');
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        })
+      }
+    }
+    
+  }
+</script>
 
 <style scoped>
 /* CUSTOM STYLE */
