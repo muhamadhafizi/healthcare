@@ -20,7 +20,7 @@ class LoginApiController extends Controller
             $token = $user->createToken('healtcare')->accessToken;
             return response()->json(['token' => $token],200);
         }else {
-            return response()->json(['error' => 'unauthorised']);
+            return response()->json(['error' => 'unauthorised'],401);
         }
     }
 }
