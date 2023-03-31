@@ -23,6 +23,6 @@ Route::namespace('Account')->name('account.')->group(function(){
 });
 
 Route::namespace('Appointment')->name('appointment')->middleware('auth:api')->group(function(){
-    Route::get('/appointment/list', 'AppoinmentApiController@list')->name('appointment.list');
+    // Route::get('/appointment/list', 'AppoinmentApiController@list')->name('appointment.list');
     Route::resource('/appointment', AppoinmentApiController::class);
 });
